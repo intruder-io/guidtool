@@ -31,7 +31,7 @@ def uuid1(node, clock_seq, timestamp):
 
 def printUUIDInfo(u):
     try:
-        u = uuid.UUID(sys.argv[1])
+        u = uuid.UUID(u)
     except ValueError:
         print("Invalid UUID")
         sys.exit(2)
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     parser.add_argument("-p", "--precision", type=int, default=10000, help="The number of 100-nanosecond intervals between each UUID")
     parser.add_argument("-r", "--range", type=int, default=1, help="The number of seconds each side of the timestamp to generate UUIDs for")
     parser.add_argument("-t", "--base-time",
-                        help="The estimated time at which the UUID was generated in '%Y-%m-%d %H:%M:%S' format, e.g. '2021-03-17 16:42:11'",
+                        help="The estimated time at which the UUID was generated in '%%Y-%%m-%%d %%H:%%M:%%S' format, e.g. '2021-03-17 16:42:11'",
                         type=lambda s: datetime.datetime.strptime(s, "%Y-%m-%d %H:%M:%S"))
 
     parser.add_argument("uuid", help="The UUID to inspect")
