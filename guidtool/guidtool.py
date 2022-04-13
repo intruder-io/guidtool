@@ -63,7 +63,7 @@ def genUUIDs(sample_uuid, precision, seconds, base_time):
     for t in range(start, end, precision):
         yield uuid1(u.node, u.clock_seq, t)
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--info", help="Print UUID info an exit", action="store_true")
 
@@ -96,3 +96,6 @@ if __name__ == "__main__":
 
     for u in genUUIDs(args.uuid, args.precision, args.range, args.base_time):
         print(u)
+
+if __name__ == "__main__":
+    main()
