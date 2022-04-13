@@ -48,6 +48,7 @@ def printUUIDInfo(u):
         print("UUID clock sequence: {}".format(u.clock_seq))
 
 def genUUIDs(sample_uuid, precision, seconds, base_time):
+    u = uuid.UUID(sample_uuid)
     if u.version != 1:
         print("Only v1 GUIDs supported")
         sys.exit(2)
@@ -67,8 +68,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--info", help="Print UUID info an exit", action="store_true")
 
-    parser.add_argument("-p", "--precision", type=int, default=10000, help="The number of 100-nanosecond intervals between each UUID")
-    parser.add_argument("-r", "--range", type=int, default=1, help="The number of seconds each side of the timestamp to generate UUIDs for")
+    parser.add_argument("-p", "--precision", type=int, default=10000, help="The number of 100-nanosecond intervals between each UUID (default 10000)")
+    parser.add_argument("-r", "--range", type=int, default=1, help="The number of seconds each side of the timestamp to generate UUIDs for (deafult 1)")
     parser.add_argument("-t", "--base-time",
                         help="The estimated time at which the UUID was generated in '%%Y-%%m-%%d %%H:%%M:%%S' format, e.g. '2021-03-17 16:42:11'",
                         type=lambda s: datetime.datetime.strptime(s, "%Y-%m-%d %H:%M:%S"))
@@ -78,7 +79,7 @@ def main():
 
     # Validate GUID
     try:
-        u = uuid.UUID(args.uuid)
+        _ = uuid.UUID(args.uuid)
     except:
         print("Invalid UUID")
         sys.exit(1)
